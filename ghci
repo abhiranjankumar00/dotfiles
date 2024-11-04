@@ -1,0 +1,12 @@
+:set editor vim
+:set +t +s
+:set -fwarn-name-shadowing
+:set -fwarn-incomplete-patterns
+
+:set prompt "%s> "
+:set prompt "%s λ: "
+:set prompt "\ESC[1;34m%s\n\ESC[0;34mλ \ESC[m"
+
+:def doc \x -> return $ ":!hoogle --info \"" ++ x ++ "\""
+:def hlint const . return $ ":! hlint \"src\""
+:def hoogle \s -> return $ ":! hoogle --count=15 \"" ++ s ++ "\""

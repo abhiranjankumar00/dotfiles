@@ -1,0 +1,27 @@
+[user]
+	email = abhiranjan.kumar00@gmail.com
+	name = Abhiranjan Kumar
+[credential "https://github.com"]
+	username = abhiranjankumar00
+[core]
+	editor = vim
+[diff]
+    tool = vimdiff
+[merge]
+    ;tool = vimdiff
+    ;tool = gvimdiff
+    tool = meld
+[credential]
+	helper = cache --timeout=600
+[push]
+	default = simple
+[alias]
+    l0g = log --graph --abbrev-commit --decorate=short --date=relative --pretty=format:'%C(red)%h%C(reset) - %C(cyan)%aD%C(reset) %C(magenta)(%ad)%C(reset) %C(yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(green)<%an>%C(reset)%n'
+    recent = for-each-ref --count=10 --sort=-committerdate refs --format='%(refname:short)'
+    ls-assume-unchanged = !git ls-files -v | grep ^h | awk '{print $2}'
+[log]
+        ;decorate = short
+[rebase]
+	autostash = true
+[pull]
+	rebase = true
