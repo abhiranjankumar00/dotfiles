@@ -1,37 +1,49 @@
 #!/bin/bash
 #Filename: setup.sh
 
-sudo apt-get install zsh
-sudo apt-get install tmux
-sudo apt-get install tree
+apt_install() {
+  echo "Installing $1"
+  apt-get install $1
+  echo "Installing $1 done."
+  echo ""
+}
 
-sudo snap install code 
-sudo apt-get install nvim
-sudo apt-get install curl
+snap_install() {
+  echo "Installing $1"
+  snap install $1
+  echo "Installing $1 done."
+  echo ""
+}
 
-ln -s -i -v ~/.vim/vimrc   ~/.vimrc
-ln -s -i -v ~/.vim/gvimrc  ~/.gvimrc
-ln -s -i -v ~/.vim/bashrc  ~/.bashrc
-ln -s -i -v ~/.vim/zshrc   ~/.zshrc
-ln -s -i -v ~/.vim/ghci   ~/.ghci
-ln -s -i -v ~/.vim/shell_aliases  ~/.shell_aliases
-ln -s -i -v ~/.vim/gitconfig ~/.gitconfig
+# Apt packages
+# apt-get update
+apt_install zsh
+apt_install tmux
+apt_install curl
+apt_install trash-cli
 
-# Installing neo vim
-mkdir -p ~/.config/nvim
-ln -s -i -v ~/.vim/init.vim ~/.config/nvim/
+# Snap packages
+snap refresh
+snap_install code 
+snap_install nvim
+snap_install tree
 
+echo "Installing nvim plugins"
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-
 nvim +PlugInstall +qall
+echo "Installing nvim plugins done"
 
+echo "Installing vim plugins"
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
 vim +PlugInstall +qall
+echo "Installing vim plugins"
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+echo "Installing zsh"
+rm -rf ~/.oh-my-zsh
+sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+echo "Installing zsh done."
 
 
 # Refer this to install powerline: http://askubuntu.com/questions/283908/how-can-i-install-and-use-powerline-plugin
