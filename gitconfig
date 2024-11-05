@@ -4,7 +4,7 @@
 [credential "https://github.com"]
 	username = abhiranjankumar00
 [core]
-	editor = vim
+	editor = nvim
 [diff]
     tool = vimdiff
 [merge]

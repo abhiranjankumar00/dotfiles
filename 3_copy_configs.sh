@@ -1,5 +1,4 @@
-#!/bin/bash
-#Filename: setup.sh
+#!/bin/sh
 
 echo "Script executed from: ${PWD}"
 

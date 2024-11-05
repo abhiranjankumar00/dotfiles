@@ -16,9 +16,9 @@ alias g++='g++ -O2 -std=c++0x -Wno-unused-result -D_GLIBCXX_DEBUG -DDEBUG -Wall 
 #alias ghci='stack ghci'
 
 # some more ls aliases
+alias l='ls -alF'
 alias ll='ls -alF'
 alias la='ls -A'
-alias l='ls -CF'
 
 alias cp='\gcp'
 alias mv='mv -v'

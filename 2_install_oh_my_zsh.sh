@@ -1,5 +1,5 @@
-#!/bin/bash
-#Filename: setup.sh
+#!/bin/sh
+#Filename: 2_install_oh_my_zsh.sh
 
 printf "Installing 'zsh'.\n======================\n"
 rm -rf ~/.oh-my-zsh
