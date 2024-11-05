@@ -6,7 +6,6 @@ set nocompatible
 call plug#begin('~/.vim/plugged')
 
 Plug 'preservim/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
 Plug 'jiangmiao/auto-pairs'
 Plug 'danro/rename.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -14,9 +13,9 @@ Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'flazz/vim-colorschemes'
-Plug 'vim-syntastic/syntastic'
-Plug 'valloric/youcompleteme'
-Plug 'scrooloose/nerdcommenter'
+Plug 'dense-analysis/ale'
+Plug 'ycm-core/youcompleteme'
+Plug 'preservim/nerdcommenter'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'SirVer/ultisnips'
 
@@ -33,7 +32,7 @@ endif
 " and for plugins that are filetype specific.
 filetype indent plugin on
 
-syntax on 		"Enable syntax highlighting
+syntax enable 		"Enable syntax highlighting
 
 "-----------------------Normal settings--------------------------------"
 
@@ -86,12 +85,6 @@ autocmd! BufNewFile * silent! 0r $HOME/.vim/skel/skel.%:e
 
 "-----------------------Plugin Specific Config--------------------------------"
 
-"------------------NerdTreeTabs------------------"
-" Use '\'+'n' to toggle nerd tree
-map <Leader>n <plug>NERDTreeTabsToggle<CR>
-" Open by default
-let g:nerdtree_tabs_open_on_console_startup = 1
-
 "---------------Fuzzy File Finder---------------"
 map <C-P> :Files<CR>
 
@@ -101,8 +94,8 @@ if !has('gui_running')
 endif
 
 "-----------------Fixing color in vimdiff-----------------"
-set background=dark
-colorscheme solarized
+" set background=dark
+" colorscheme solarized
 
 "-----------------Syntastic-----------------"
 set statusline+=%#warningmsg#

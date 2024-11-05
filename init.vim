@@ -12,13 +12,12 @@ Plug 'easymotion/vim-easymotion'
 Plug 'flazz/vim-colorschemes'
 Plug 'dense-analysis/ale'
 Plug 'ycm-core/YouCompleteMe'
-Plug 'scrooloose/nerdcommenter'
+Plug 'preservim/nerdcommenter'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'SirVer/ultisnips'
 
 " Initialize plugin system
 call plug#end()
-
 
 set showmatch               " show matching
 set mouse=v                 " middle-click paste with
@@ -29,7 +28,6 @@ set shiftwidth=2            " width for autoindents
 set number                  " add line numbers
 set wildmode=longest,list   " get bash-like tab completions
 set cc=80                  " set an 80 column border for good coding style
-" filetype plugin indent on   "allow auto-indenting depending on file type
 syntax on                   " syntax highlighting
 set mouse=a                 " enable mouse click
 set clipboard=unnamedplus   " using system clipboard
@@ -68,9 +66,11 @@ cmap w!! w !sudo tee > /dev/null %
 
 " Searching
 set hlsearch 		" Highlight all matching string
-" Map <C-L> (redraw screen) to also turn off search highlighting until the next
-" search.
+" Map <C-L> (redraw screen) to also turn off search highlighting until the
+" next search.
 nnoremap <C-L> :nohl<CR><C-L>
+" Open a dialog box listing nearby files.
+map <C-P> :Files<CR>
 set ignorecase 		" Use case insensitive search
 " Override the 'ignorecase' option if the search pattern contains upper case
 " characters
@@ -96,3 +96,79 @@ autocmd FilterWritePre * if &diff | setlocal wrap | endif
 
 "Adding template for cpp, java and haskell and rest
 autocmd! BufNewFile * silent! 0r $HOME/.vim/skel/skel.%:e
+
+"-----------------------Plugin Specific Config--------------------------------"
+
+"-----------------Rainbow Parentheses-----------------"
+au VimEnter * RainbowParentheses    " Start Rainbow parentheses at vim start
+
+"---------------Setting to color statusline---------------"
+if !has('gui_running')
+  set t_Co=256
+endif
+
+"-----------------Fixing color in vimdiff-----------------"
+set background=dark
+"-----------------------Helper functions--------------------------------"
+
+function! ShowTralingSpace()
+    " Highligting trailing whitespaces
+    highlight ExtraWhitespace ctermbg=red guibg=red
+    match ExtraWhitespace /\s\+$/
+endfunction
+
+call ShowTralingSpace()
+
+" call `ShowTrailingSpace` in each read/write
+autocmd BufRead *.* call ShowTralingSpace()
+autocmd BufWrite *.* call ShowTralingSpace()
+
+function TrimTrailingSpaces()
+  if !&binary && &filetype != 'diff'
+    normal mz
+    normal Hmy
+    %s/\s\+$//e
+    normal 'yz<CR>
+    normal `z
+  endif
+endfunction
+
+"-----------------------File specific methods--------------------------------"
+
+" C
+function! CSET()
+  set makeprg=if\ \[\ -f\ \"Makefile\"\ \];then\ make\ $*;else\ if\ \[\ -f\ \"makefile\"\ \];then\ make\ $*;else\ gcc\ -Wno-unused-result\ -Wreturn-type\ -Wmain\ -Werror=return-type\ -Werror=main\ -pipe\ -O3\ -std=c99\ %;fi;fi
+endfunction
+
+" Cpp
+function! CPPSET()
+  setlocal makeprg=if\ \[\ -f\ \"Makefile\"\ \];then\ make\ $*;else\ if\ \[\ -f\ \"makefile\"\ \];then\ make\ $*;else\ clang++\ -O2\ -g\ -std=c++14\ -Wno-unused-result\ -D_GLIBCXX_DEBUG\ -DDEBUG\ -Wall\ -Wshadow\ %;fi;fi
+endfunction
+
+" Haskell
+function! HSKSET()
+  setlocal makeprg=if\ \[\ -f\ \"Makefile\"\ \];then\ make\ $*;else\ if\ \[\ -f\ \"makefile\"\ \];then\ make\ $*;else\ ghc\ -O2\ -fforce-recomp\ -rtsopts\ -fwarn-name-shadowing\ -fwarn-incomplete-patterns\ -auto-all\ -Wall\ -with-rtsopts=\"-K512m\ -A8m\"\ %;fi;fi
+endfunction
+
+" FSharp
+function! FSHARPSET()
+  set makeprg=if\ \[\ -f\ \"Makefile\"\ \];then\ make\ $*;else\ if\ \[\ -f\ \"makefile\"\ \];then\ make\ $*;else\ fsharpc\ -r:/usr/lib/cli/FSharp.Core-4.3/FSharp.Core.dll\ --noframework\ %;fi;fi
+endfunction
+
+" Makefile
+function! MAKEFILESET()
+  set tw=0
+"  set nowrap
+  " in a Makefile we need to use <Tab> to actually produce tabs
+  set noet
+  set sts=4
+endfunction
+
+" Autocommands for all languages:
+autocmd Filetype gitcommit setlocal spell textwidth=72
+autocmd FileType c          call CSET()
+autocmd FileType cpp        call CPPSET()
+autocmd FileType make       call MAKEFILESET()
+autocmd FileType fsharp     call FSHARPSET()
+autocmd FileType haskell    call HSKSET()
+
