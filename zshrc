@@ -110,3 +110,5 @@ prompt_context(){}
 if [ -f ~/.shell_aliases ]; then
     . ~/.shell_aliases
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

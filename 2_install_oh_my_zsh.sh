@@ -7,5 +7,5 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 echo "Installing zsh done."
 
 
-# Refer this to install powerline: http://askubuntu.com/questions/283908/how-can-i-install-and-use-powerline-plugin
+# Refer this to install powerline: https://askubuntu.com/questions/283908/how-can-i-install-and-use-powerline-plugin
 
