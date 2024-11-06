@@ -15,6 +15,8 @@ alias g++='g++ -O2 -std=c++0x -Wno-unused-result -D_GLIBCXX_DEBUG -DDEBUG -Wall 
 #alias ghc='ghc -O2 -fforce-recomp -rtsopts -fwarn-name-shadowing -auto-all -with-rtsopts="-A8m -K512m -p"'
 #alias ghci='stack ghci'
 
+alias vim=nvim
+
 # some more ls aliases
 alias l='ls -alF'
 alias ll='ls -alF'
