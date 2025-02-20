@@ -40,7 +40,8 @@ apt_install mono-complete
 apt_install golang
 apt_install nodejs
 apt_install openjdk-17-jdk
-apt_install openjdk-17-jre npm
+apt_install openjdk-17-jre 
+apt_install npm
 
 echo "Updating python to use python3"
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
