@@ -18,6 +18,7 @@ snap_install() {
 # Apt packages
 echo "Updating aptitute packages."
 sudo apt-get update
+apt_install snapd
 apt_install python3
 apt_install python3-pip
 apt_install npm
