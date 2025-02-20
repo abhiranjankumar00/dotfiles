@@ -40,5 +40,5 @@ echo "Installing 'nvim' plugins done"
 
 vim +PlugInstall +qall
 
-cd ~/.vim/plugged/YouCompleteMe
+cd ~/.vim/plugged/youcompleteme
 python3 install.py --all
