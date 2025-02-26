@@ -3,7 +3,7 @@
 
 apt_install() {
   echo "Installing '$1' from aptitute."
-  sudo apt-get install $1
+  sudo apt-get install --yes $1
   echo "Installing '$1' done."
   echo "======================"
 }
